@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCMG - إدارة القضايا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: #0b131e; color: #ffffff; direction: rtl; }
+        .dashboard-container { display: flex !important; flex-direction: row-reverse !important; min-height: 100vh; width: 100%; }
+        .sidebar { width: 250px !important; background-color: #121c27 !important; border-left: 1px solid #1e2d3d !important; display: flex !important; flex-direction: column !important; flex-shrink: 0 !important; }
+        .sidebar .logo { padding: 25px 20px; text-align: center; }
+        .sidebar .logo h2 { color: #ffffff; font-size: 20px; }
+        .sidebar .menu { display: flex; flex-direction: column; }
+        .sidebar .menu a { display: flex; align-items: center; gap: 12px; padding: 14px 20px; color: #778da9; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .sidebar .menu a:hover, .sidebar .menu a.active { color: #ffffff; background: #1a2736; border-right: 4px solid #ffffff; }
+        .main-content { flex: 1 !important; padding: 20px; overflow-y: auto; width: calc(100% - 250px); }
+        .card-custom { background: #121c27; border: 1px solid #1e2d3d; border-radius: 10px; padding: 20px; margin-bottom: 25px; }
+        .table-header-tools { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .action-btns { display: flex; gap: 6px; }
+        .btn-icon { background: #0b131e; border: 1px solid #1e2d3d; color: #778da9; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .btn-icon:hover { color: #fff; border-color: #778da9; }
+        table { width: 100%; border-collapse: collapse; text-align: right; font-size: 13px; }
+        th { color: #778da9; padding: 12px; border-bottom: 1px solid #1e2d3d; }
+        td { padding: 12px; border-bottom: 1px solid #1e2d3d; color: #e0e1dd; }
+        .modal-overlay { display: none; background: rgba(11, 19, 30, 0.85); position: fixed; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-box { background-color: #121c27; border: 1px solid #1e2d3d; border-radius: 12px; width: 700px; max-width: 90%; color: #ffffff; overflow: hidden; }
+    </style>
+    <link rel="stylesheet" href="figma-replacement.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo"><h2>✦ TCMG</h2></div>
+            <nav class="menu">
+                <a href="index.html"><i class="fa-solid fa-house"></i> الصفحة الرئيسية</a>
+                <a href="contacts.html"><i class="fa-solid fa-phone"></i> الاتصال</a>
+                <a href="clients.html"><i class="fa-solid fa-user-group"></i> العملاء</a>
+                <a href="cases.html" class="active"><i class="fa-solid fa-briefcase"></i> القضايا</a>
+                <a href="court.html"><i class="fa-solid fa-scale-balanced"></i> المحكمة</a>
+                <a href="tasks.html"><i class="fa-solid fa-list-check"></i> المهام والأعمال</a>
+                <a href="hr.html"><i class="fa-solid fa-users"></i> الموارد البشرية</a>
+                <a href="vacations.html"><i class="fa-solid fa-clock-rotate-left"></i> الإجازات</a>
+                <a href="roles.html"><i class="fa-solid fa-lock"></i> صلاحيات الدخول</a>
+                <a href="consultations.html"><i class="fa-solid fa-gavel"></i> الاستشارات القانونية</a>
+                <a href="system.html"><i class="fa-solid fa-gears"></i> النظام</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="cases-dashboard" aria-label="ملخص القضايا">
+                <div class="cases-dashboard-row cases-dashboard-wide">
+                    <article class="card-custom cases-chart-card">
+                        <div class="cases-chart-heading">
+                            <div><h2>القضايا</h2><span>القضايا النشطة والمغلقة</span></div>
+                            <div class="cases-chart-legend"><span><i class="gold-dot"></i> نشطة</span><span><i class="white-dot"></i> مغلقة</span></div>
+                        </div>
+                        <svg viewBox="0 0 640 220" role="img" aria-label="مخطط القضايا النشطة والمغلقة">
+                            <g class="chart-grid"><path d="M52 24H620 M52 66H620 M52 108H620 M52 150H620 M52 192H620 M52 24V192 M166 24V192 M280 24V192 M394 24V192 M508 24V192 M620 24V192"/></g>
+                            <g class="chart-labels"><text x="43" y="28">100</text><text x="43" y="70">75</text><text x="43" y="112">50</text><text x="43" y="154">25</text><text x="43" y="196">0</text><text x="52" y="214">يناير</text><text x="166" y="214">فبراير</text><text x="280" y="214">مارس</text><text x="394" y="214">أبريل</text><text x="508" y="214">مايو</text><text x="620" y="214">يونيو</text></g>
+                            <path class="case-line-gold" d="M52 140L108 96L166 130L222 58L280 108L338 82L394 36L452 48L508 108L564 92L620 88"/>
+                            <path class="case-line-white" d="M52 72L108 132L166 74L222 66L280 128L338 66L394 54L452 76L508 150L564 110L620 120"/>
+                        </svg>
+                    </article>
+                    <article class="card-custom cases-chart-card closure-chart">
+                        <div class="cases-chart-heading"><div><h2>نسبة إغلاق القضايا</h2><span>معدل الإنجاز</span></div></div>
+                        <div class="closure-ring"><div><strong>76.2%</strong><span>نسبة الإغلاق</span></div></div>
+                    </article>
+                </div>
+                <div class="cases-dashboard-row cases-dashboard-narrow">
+                    <article class="card-custom cases-chart-card">
+                        <div class="cases-chart-heading"><div><h2>حالات القضايا</h2><span>توزيع القضايا حسب الحالة</span></div></div>
+                        <div class="case-status-layout">
+                            <svg viewBox="0 0 180 180" role="img" aria-label="توزيع حالات القضايا">
+                                <path fill="#a67c3c" d="M90 90V16A74 74 0 0 1 159 64Z"/><path fill="#a7495a" d="M90 90L159 64A74 74 0 0 1 105 163Z"/><path fill="#edf1fa" d="M90 90L105 163A74 74 0 0 1 26 74Z"/><path fill="#4c70c7" d="M90 90L26 74A74 74 0 0 1 90 16Z"/>
+                            </svg>
+                            <div class="cases-chart-legend"><span><i class="gold-dot"></i> نشطة</span><span><i class="white-dot"></i> مكتملة</span><span><i class="red-dot"></i> معلقة</span></div>
+                        </div>
+                    </article>
+                    <article class="card-custom cases-chart-card">
+                        <div class="cases-chart-heading"><div><h2>نشاط القضايا</h2><span>مؤشر متابعة القضايا</span></div></div>
+                        <svg viewBox="0 0 640 220" role="img" aria-label="مخطط متابعة نشاط القضايا">
+                            <g class="chart-grid"><path d="M52 24H620 M52 66H620 M52 108H620 M52 150H620 M52 192H620 M52 24V192 M166 24V192 M280 24V192 M394 24V192 M508 24V192 M620 24V192"/></g>
+                            <g class="chart-labels"><text x="43" y="28">100</text><text x="43" y="70">75</text><text x="43" y="112">50</text><text x="43" y="154">25</text><text x="43" y="196">0</text><text x="52" y="214">١</text><text x="166" y="214">٢</text><text x="280" y="214">٣</text><text x="394" y="214">٤</text><text x="508" y="214">٥</text><text x="620" y="214">٦</text></g>
+                            <path class="case-area-fill" d="M52 174C100 170 114 162 166 152S224 128 280 102S340 58 394 52S452 46 508 38S574 33 620 27V192H52Z"/>
+                            <path class="case-area-line" d="M52 174C100 170 114 162 166 152S224 128 280 102S340 58 394 52S452 46 508 38S574 33 620 27"/>
+                        </svg>
+                    </article>
+                </div>
+            </section>
+            <div class="card-custom">
+                <h3 style="font-size: 18px; margin-bottom: 15px; text-align: center;">سجل القضايا</h3>
+                <div class="table-header-tools">
+                    <span style="color: #778da9; font-size: 13px;">جميع القضايا المسجلة</span>
+                    <div class="action-btns">
+                        <button class="btn-icon" id="openCaseModal"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>رقم القضية</th><th>اسم الموكل</th><th>نوع القضية</th><th>المحامي المسؤول</th><th>الحالة</th><th style="text-align: center;">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#CASE-992</td><td>شركة الأمل للتجارة</td><td>تجاري / تعاقدات</td><td>سارة علي</td><td><span style="color: #28a745; background: rgba(40,167,69,0.15); padding: 3px 8px; border-radius: 4px; font-size: 11px;">نشطة</span></td>
+                            <td style="text-align: center;"><i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- نافذة إضافة قضية جديدة -->
+    <div id="caseModal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="padding: 20px; border-bottom: 1px solid #1e2d3d; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-size: 18px;">إضافة قضية جديدة</h2>
+                <i class="fa-solid fa-xmark close-modal" style="cursor: pointer; color: #778da9;"></i>
+            </div>
+            <form style="padding: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">رقم القضية</label><input type="text" placeholder="#CASE-000" style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"></div>
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">اسم الموكل / العميل</label><input type="text" placeholder="اسم الموكل" style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"></div>
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">نوع القضية</label><select style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"><option>تجارية</option><option>عقارية</option><option>جنائية</option><option>أحوال شخصية</option></select></div>
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">المحامي المسؤول</label><input type="text" placeholder="المحامي" style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"></div>
+                </div>
+                <div style="display: flex; justify-content: flex-end;"><button type="submit" style="background: none; border: none; color: #fff; font-weight: bold; cursor: pointer;">حفظ <i class="fa-solid fa-arrow-left"></i></button></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('openCaseModal').addEventListener('click', () => document.getElementById('caseModal').style.display = 'flex');
+        document.querySelectorAll('.close-modal, .modal-overlay').forEach(el => el.addEventListener('click', e => { if(e.target === el) document.getElementById('caseModal').style.display = 'none'; }));
+    </script>
+    <script src="tcmg-theme.js"></script>
+</body>
+</html>

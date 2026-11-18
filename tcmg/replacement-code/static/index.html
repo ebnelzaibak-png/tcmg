@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCMG - لوحة التحكم</title>
+    <!-- خط Cairo وأيقونات Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- مكتبة Chart.js للرسم البياني -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        body {
+            background-color: #0b131e;
+            color: #ffffff;
+            direction: rtl;
+        }
+        /* إجبار القائمة الجانبية على اليمين والمحتوى على اليسار */
+        .dashboard-container {
+            display: flex !important;
+            flex-direction: row-reverse !important;
+            min-height: 100vh;
+            width: 100%;
+        }
+        /* القائمة الجانبية Sidebar */
+        .sidebar {
+            width: 250px !important;
+            background-color: #121c27 !important;
+            border-left: 1px solid #1e2d3d !important;
+            display: flex !important;
+            flex-direction: column !important;
+            flex-shrink: 0 !important;
+        }
+        .sidebar .logo {
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .sidebar .logo h2 {
+            color: #ffffff;
+            font-size: 20px;
+        }
+        .sidebar .menu {
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: #778da9;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .sidebar .menu a:hover, .sidebar .menu a.active {
+            color: #ffffff;
+            background: #1a2736;
+            border-right: 4px solid #ffffff;
+        }
+        /* المحتوى الرئيسي Main Content */
+        .main-content {
+            flex: 1 !important;
+            padding: 20px;
+            overflow-y: auto;
+            width: calc(100% - 250px);
+        }
+        /* الشريط العلوي Header */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .search-box {
+            background: #121c27;
+            border: 1px solid #1e2d3d;
+            border-radius: 20px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 280px;
+        }
+        .search-box input {
+            background: none;
+            border: none;
+            color: #fff;
+            outline: none;
+            font-size: 13px;
+            width: 100%;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .card-custom {
+            background: #121c27;
+            border: 1px solid #1e2d3d;
+            border-radius: 10px;
+            padding: 18px;
+        }
+    </style>
+    <link rel="stylesheet" href="figma-replacement.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- القائمة الجانبية Sidebar (في الجهة اليمنى) -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>✦ TCMG</h2>
+            </div>
+            <nav class="menu">
+                <a href="index.html" class="active"><i class="fa-solid fa-house"></i> الصفحة الرئيسية</a>
+                <a href="contacts.html"><i class="fa-solid fa-phone"></i> الاتصال</a>
+                <a href="clients.html"><i class="fa-solid fa-user-group"></i> العملاء</a>
+                <a href="cases.html"><i class="fa-solid fa-briefcase"></i> القضايا</a>
+                <a href="court.html"><i class="fa-solid fa-scale-balanced"></i> المحكمة</a>
+                <a href="tasks.html"><i class="fa-solid fa-list-check"></i> المهام والأعمال</a>
+                <a href="hr.html"><i class="fa-solid fa-users"></i> الموارد البشرية</a>
+                <a href="vacations.html"><i class="fa-solid fa-clock-rotate-left"></i> الإجازات</a>
+                <a href="roles.html"><i class="fa-solid fa-lock"></i> صلاحيات الدخول</a>
+                <a href="consultations.html"><i class="fa-solid fa-gavel"></i> الاستشارات القانونية</a>
+                <a href="system.html"><i class="fa-solid fa-gears"></i> النظام</a>
+            </nav>
+        </aside>
+
+        <!-- المحتوى الرئيسي Main Content (في الجهة اليسرى) -->
+        <main class="main-content">
+            <!-- الشريط العلوي -->
+            <header class="top-header">
+                <div class="user-profile">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="background: #778da9; color: #0b131e; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">A</div>
+                        <span style="font-size: 14px;">Admin</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #778da9;"></i>
+                    </div>
+                    <i class="fa-regular fa-bell" style="color: #778da9; font-size: 16px; position: relative;">
+                        <span style="position: absolute; top: -5px; right: -5px; background: #007bff; color: #fff; font-size: 9px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">5</span>
+                    </i>
+                    <span style="background: #1a2736; padding: 2px 8px; border-radius: 4px; font-size: 12px; color: #778da9;">EG</span>
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #778da9; font-size: 13px;"></i>
+                    <input type="text" placeholder="كيف يمكننا مساعدتك؟">
+                </div>
+            </header>
+
+            <!-- الصف الأول: التقويم (يسار) + رسم القضايا البياني (يمين) -->
+            <div style="display: grid; grid-template-columns: 1fr 2.4fr; gap: 20px; margin-bottom: 20px;">
+                <!-- التقويم -->
+                <div class="card-custom">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <button style="background: none; border: none; color: #778da9; cursor: pointer;"><i class="fa-solid fa-chevron-right"></i></button>
+                        <h4 style="font-size: 14px; color: #fff;">Mar 2024</h4>
+                        <button style="background: none; border: none; color: #778da9; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></button>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; font-size: 11px;">
+                        <span style="color: #778da9;">Sat</span><span style="color: #778da9;">Fri</span><span style="color: #778da9;">Thu</span><span style="color: #778da9;">Wed</span><span style="color: #778da9;">Tue</span><span style="color: #778da9;">Mon</span><span style="color: #778da9;">Sun</span>
+                        <span style="color: #3b4e63;">02</span><span style="color: #3b4e63;">01</span><span style="color: #3b4e63;">29</span><span style="color: #3b4e63;">28</span><span style="color: #3b4e63;">27</span><span style="color: #3b4e63;">26</span><span style="color: #3b4e63;">25</span>
+                        <span>09</span><span>08</span><span>07</span><span>06</span><span>05</span><span>04</span><span>03</span>
+                        <span>16</span><span>15</span><span>14</span><span>13</span><span>12</span><span style="background-color: #ffffff; color: #0b131e; border-radius: 4px; font-weight: bold; width: 20px; height: 20px; line-height: 20px; margin: 0 auto; display: block;">11</span><span>10</span>
+                        <span>23</span><span>22</span><span>21</span><span>20</span><span>19</span><span>18</span><span>17</span>
+                        <span>30</span><span>29</span><span>28</span><span>27</span><span>26</span><span>25</span><span>24</span>
+                        <span style="color: #3b4e63;">06</span><span style="color: #3b4e63;">05</span><span style="color: #3b4e63;">04</span><span style="color: #3b4e63;">03</span><span style="color: #3b4e63;">02</span><span style="color: #3b4e63;">01</span><span>31</span>
+                    </div>
+                </div>
+
+                <!-- رسم إحصائيات القضايا الرئيسي -->
+                <div class="card-custom" style="position: relative; height: 250px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                        <div style="display: flex; gap: 15px; font-size: 11px; color: #778da9;">
+                            <span style="display: flex; align-items: center; gap: 5px;"><span style="width: 8px; height: 8px; background: #c8965d; border-radius: 50%;"></span> نشطة</span>
+                            <span style="display: flex; align-items: center; gap: 5px;"><span style="width: 8px; height: 8px; background: #ffffff; border-radius: 50%;"></span> مغلقة</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <h3 style="font-size: 20px; color: #ffffff; font-weight: bold; margin: 0;">القضايا</h3>
+                            <span style="font-size: 10px; color: #778da9;">من ١ مارس إلى ١١ مارس</span>
+                        </div>
+                    </div>
+                    <div style="position: relative; height: 180px; width: 100%;">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الصف الثاني: بطاقات الإحصائيات الأربع -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px;">
+                <div class="card-custom" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <i class="fa-solid fa-user-group" style="font-size: 18px; color: #778da9;"></i>
+                        <span style="color: #778da9; font-size: 12px; font-weight: bold;">مجموع المحامين</span>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9px; color: #28a745;">↑ 3% زيادة عن الشهر الماضي</span>
+                        <h2 style="font-size: 24px; color: #ffffff; margin: 0;">34</h2>
+                    </div>
+                </div>
+
+                <div class="card-custom" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <i class="fa-solid fa-diagram-project" style="font-size: 18px; color: #778da9;"></i>
+                        <span style="color: #778da9; font-size: 12px; font-weight: bold;">مجموع الوحدات التابعة</span>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9px; color: #778da9;">- العدد ثابت</span>
+                        <h2 style="font-size: 24px; color: #ffffff; margin: 0;">4</h2>
+                    </div>
+                </div>
+
+                <div class="card-custom" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <i class="fa-solid fa-address-book" style="font-size: 18px; color: #778da9;"></i>
+                        <span style="color: #778da9; font-size: 12px; font-weight: bold;">مجموع جهات الاتصال</span>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9px; color: #28a745;">↑ 5% زيادة عن الشهر الماضي</span>
+                        <h2 style="font-size: 24px; color: #ffffff; margin: 0;">124</h2>
+                    </div>
+                </div>
+
+                <div class="card-custom" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <i class="fa-solid fa-clock" style="font-size: 18px; color: #778da9;"></i>
+                        <span style="color: #778da9; font-size: 12px; font-weight: bold;">مجموع حالات الانتظار</span>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9px; color: #dc3545;">↓ 7% عن الشهر الماضي</span>
+                        <h2 style="font-size: 24px; color: #ffffff; margin: 0;">2</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الصف الثالث: فئات القضايا (دائري يسار) + رسم العملاء (أعمدة يمين) -->
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-bottom: 20px;">
+                <!-- رسم دائرى لفئات القضايا -->
+                <div class="card-custom" style="position: relative; height: 260px;">
+                    <div style="text-align: right; margin-bottom: 10px;">
+                        <h3 style="font-size: 18px; color: #ffffff; font-weight: bold; margin: 0;">فئات القضايا</h3>
+                        <span style="font-size: 10px; color: #778da9;">من ١ مارس إلى ١١ مارس</span>
+                    </div>
+                    <div style="position: relative; height: 180px; width: 100%; display: flex; justify-content: center;">
+                        <canvas id="casesPieChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- رسم أعمدة العملاء -->
+                <div class="card-custom" style="position: relative; height: 260px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                        <div style="display: flex; gap: 15px; font-size: 11px; color: #778da9;">
+                            <span style="display: flex; align-items: center; gap: 5px;"><span style="width: 8px; height: 8px; background: #ffffff; border-radius: 50%;"></span> أفراد</span>
+                            <span style="display: flex; align-items: center; gap: 5px;"><span style="width: 8px; height: 8px; background: #c8965d; border-radius: 50%;"></span> شركات ومؤسسات</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <h3 style="font-size: 18px; color: #ffffff; font-weight: bold; margin: 0;">العملاء</h3>
+                            <span style="font-size: 10px; color: #778da9;">من ١ مارس إلى ١١ مارس</span>
+                        </div>
+                    </div>
+                    <div style="position: relative; height: 190px; width: 100%;">
+                        <canvas id="clientsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الصف الرابع: رسم الاستشارات القانونية السفلي -->
+            <div class="card-custom" style="position: relative; height: 260px;">
+                <div style="text-align: right; margin-bottom: 10px;">
+                    <h3 style="font-size: 18px; color: #ffffff; font-weight: bold; margin: 0;">الاستشارات القانونية</h3>
+                    <span style="font-size: 10px; color: #778da9;">من ١ مارس إلى ١١ مارس</span>
+                </div>
+                <div style="position: relative; height: 190px; width: 100%;">
+                    <canvas id="consultationsChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- كود إعداد ورسم الرسوم البيانية الاربعة بشكل مباشر وأكيد -->
+    <script>
+        function renderCharts() {
+            // 1. الرسم البياني الرئيسي للقضايا
+            const mainElem = document.getElementById('mainChart');
+            if (mainElem) {
+                new Chart(mainElem.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+                        datasets: [
+                            { label: 'نشطة', data: [600, 300, 150, 750, 450, 250, 750, 750, 450, 450], borderColor: '#c8965d', borderWidth: 2, tension: 0.2, fill: false, pointRadius: 2 },
+                            { label: 'مغلقة', data: [620, 180, 350, 180, 550, 480, 950, 900, 500, 600], borderColor: '#ffffff', borderWidth: 2, tension: 0.2, fill: false, pointRadius: 2 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#778da9' }, grid: { color: 'rgba(30, 45, 61, 0.5)' } }, y: { ticks: { color: '#778da9' }, grid: { color: 'rgba(30, 45, 61, 0.5)' }, min: 0, max: 1000 } } }
+                });
+            }
+
+            // 2. الرسم الدائري لفئات القضايا
+            const pieElem = document.getElementById('casesPieChart');
+            if (pieElem) {
+                new Chart(pieElem.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['أحوال شخصية', 'قضايا عقارية', 'قضايا إدارية', 'قضايا جنائية'],
+                        datasets: [{
+                            data: [365, 298, 183, 100],
+                            backgroundColor: ['#c8965d', '#1e2d3d', '#ffffff', '#800020']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+
+            // 3. الرسم البياني للعملاء
+            const clientsElem = document.getElementById('clientsChart');
+            if (clientsElem) {
+                new Chart(clientsElem.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+                        datasets: [
+                            { label: 'شركات ومؤسسات', data: [10, 45, 42, 5, 10, 25, 8, 12, 40, 42], backgroundColor: '#c8965d' },
+                            { label: 'أفراد', data: [8, 12, 3, 48, 25, 34, 28, 18, 10, 31], backgroundColor: '#ffffff' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#778da9' } }, y: { ticks: { color: '#778da9' }, min: 0, max: 60 } } }
+                });
+            }
+
+            // 4. الرسم البياني للاستشارات القانونية
+            const consultElem = document.getElementById('consultationsChart');
+            if (consultElem) {
+                new Chart(consultElem.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+                        datasets: [
+                            { label: 'مكتبية', data: [900, 950, 780, 400, 400, 500, 0, 750, 600, 0], backgroundColor: '#c8965d' },
+                            { label: 'هاتفية', data: [520, 200, 0, 900, 600, 880, 420, 0, 620, 900], backgroundColor: '#ffffff' },
+                            { label: 'عبر واتس اب', data: [800, 0, 500, 0, 420, 700, 550, 850, 750, 780], backgroundColor: '#415a77' },
+                            { label: 'شركات', data: [150, 180, 250, 50, 180, 500, 750, 700, 700, 0], backgroundColor: '#800020' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#778da9' } }, y: { ticks: { color: '#778da9' }, min: 0, max: 1000 } } }
+                });
+            }
+        }
+
+        // تشغيل الرسوم فور اكتمال تحضير الصفحة
+        if (document.readyState === 'complete') {
+            renderCharts();
+        } else {
+            window.addEventListener('DOMContentLoaded', renderCharts);
+            window.addEventListener('load', renderCharts);
+        }
+    </script>
+    <script src="tcmg-theme.js"></script>
+</body>
+</html>

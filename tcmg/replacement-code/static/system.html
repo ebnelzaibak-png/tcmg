@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCMG - إعدادات النظام</title>
+    <!-- خط Cairo وأيقونات Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        body {
+            background-color: #0b131e;
+            color: #ffffff;
+            direction: rtl;
+        }
+        .dashboard-container {
+            display: flex !important;
+            flex-direction: row-reverse !important; /* ضمان بقاء القائمة الجانبية على اليمين */
+            min-height: 100vh;
+            width: 100%;
+        }
+        /* القائمة الجانبية Sidebar */
+        .sidebar {
+            width: 250px !important;
+            background-color: #121c27 !important;
+            border-left: 1px solid #1e2d3d !important;
+            display: flex !important;
+            flex-direction: column !important;
+            flex-shrink: 0 !important;
+        }
+        .sidebar .logo {
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .sidebar .logo h2 {
+            color: #ffffff;
+            font-size: 20px;
+        }
+        .sidebar .menu {
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: #778da9;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .sidebar .menu a:hover, .sidebar .menu a.active {
+            color: #ffffff;
+            background: #1a2736;
+            border-right: 4px solid #ffffff;
+        }
+        /* المحتوى الرئيسي Main Content */
+        .main-content {
+            flex: 1 !important;
+            padding: 25px;
+            overflow-y: auto;
+            width: calc(100% - 250px);
+        }
+        /* بطاقة إعدادات النظام */
+        .settings-card {
+            background: #121c27;
+            border: 1px solid #1e2d3d;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .settings-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #1e2d3d;
+            text-align: right;
+        }
+        .settings-header h2 {
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: bold;
+            margin: 0;
+        }
+        /* عناصر القائمة المنسدلة للإعدادات */
+        .setting-item {
+            border-bottom: 1px solid #1e2d3d;
+            transition: background 0.2s;
+        }
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        .setting-toggle {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: right;
+        }
+        .setting-toggle:hover {
+            background: #162231;
+        }
+        .setting-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+        }
+        .setting-title i {
+            color: #778da9;
+            font-size: 16px;
+        }
+        .setting-content {
+            display: none;
+            padding: 15px 25px 20px 25px;
+            background: #0e1723;
+            border-top: 1px solid #1e2d3d;
+        }
+        .setting-content select, .setting-content input {
+            width: 100%;
+            background: #121c27;
+            border: 1px solid #1e2d3d;
+            border-radius: 6px;
+            padding: 10px 15px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="figma-replacement.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- القائمة الجانبية Sidebar (في اليمين) -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>✦ TCMG</h2>
+            </div>
+            <nav class="menu">
+                <a href="index.html"><i class="fa-solid fa-house"></i> الصفحة الرئيسية</a>
+                <a href="contacts.html"><i class="fa-solid fa-phone"></i> الاتصال</a>
+                <a href="clients.html"><i class="fa-solid fa-user-group"></i> العملاء</a>
+                <a href="cases.html"><i class="fa-solid fa-briefcase"></i> القضايا</a>
+                <a href="court.html"><i class="fa-solid fa-scale-balanced"></i> المحكمة</a>
+                <a href="tasks.html"><i class="fa-solid fa-list-check"></i> المهام والأعمال</a>
+                <a href="hr.html"><i class="fa-solid fa-users"></i> الموارد البشرية</a>
+                <a href="vacations.html"><i class="fa-solid fa-clock-rotate-left"></i> الإجازات</a>
+                <a href="roles.html"><i class="fa-solid fa-lock"></i> صلاحيات الدخول</a>
+                <a href="consultations.html"><i class="fa-solid fa-gavel"></i> الاستشارات القانونية</a>
+                <a href="system.html" class="active"><i class="fa-solid fa-gears"></i> النظام</a>
+            </nav>
+        </aside>
+
+        <!-- المحتوى الرئيسي (في اليسار) -->
+        <main class="main-content">
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h2>إعدادات النظام</h2>
+                </div>
+
+                <!-- 1. اللغة -->
+                <div class="setting-item">
+                    <button class="setting-toggle" onclick="toggleSetting('langContent')">
+                        <i class="fa-solid fa-chevron-down arrow-icon" id="arrow-langContent"></i>
+                        <span class="setting-title">اللغة <i class="fa-solid fa-globe"></i></span>
+                    </button>
+                    <div class="setting-content" id="langContent">
+                        <select>
+                            <option value="ar">العربية (Arabic)</option>
+                            <option value="en">الإنجليزية (English)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 2. تغيير صورة الدخول -->
+                <div class="setting-item">
+                    <button class="setting-toggle" onclick="toggleSetting('imgContent')">
+                        <i class="fa-solid fa-chevron-down arrow-icon" id="arrow-imgContent"></i>
+                        <span class="setting-title">تغيير صورة الدخول <i class="fa-regular fa-user"></i></span>
+                    </button>
+                    <div class="setting-content" id="imgContent">
+                        <input type="file" accept="image/*" style="padding: 6px;">
+                    </div>
+                </div>
+
+                <!-- 3. تنسيق التاريخ -->
+                <div class="setting-item">
+                    <button class="setting-toggle" onclick="toggleSetting('dateContent')">
+                        <i class="fa-solid fa-chevron-down arrow-icon" id="arrow-dateContent"></i>
+                        <span class="setting-title">تنسيق التاريخ <i class="fa-regular fa-calendar"></i></span>
+                    </button>
+                    <div class="setting-content" id="dateContent">
+                        <select>
+                            <option value="ymd">YYYY-MM-DD (2026-11-05)</option>
+                            <option value="dmy">DD-MM-YYYY (05-11-2026)</option>
+                            <option value="mdy">MM-DD-YYYY (11-05-2026)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 4. العملة -->
+                <div class="setting-item">
+                    <button class="setting-toggle" onclick="toggleSetting('currencyContent')">
+                        <i class="fa-solid fa-chevron-down arrow-icon" id="arrow-currencyContent"></i>
+                        <span class="setting-title">العملة <i class="fa-solid fa-dollar-sign"></i></span>
+                    </button>
+                    <div class="setting-content" id="currencyContent">
+                        <select>
+                            <option value="SAR">ريال سعودي (SAR)</option>
+                            <option value="EGP">جنيه مصري (EGP)</option>
+                            <option value="USD">دولار أمريكي (USD)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 5. المنطقة الزمنية -->
+                <div class="setting-item">
+                    <button class="setting-toggle" onclick="toggleSetting('timezoneContent')">
+                        <i class="fa-solid fa-chevron-down arrow-icon" id="arrow-timezoneContent"></i>
+                        <span class="setting-title">المنطقة الزمنية <i class="fa-regular fa-clock"></i></span>
+                    </button>
+                    <div class="setting-content" id="timezoneContent">
+                        <select>
+                            <option value="cairo">(GMT+2) القاهرة</option>
+                            <option value="riyadh">(GMT+3) الرياض</option>
+                            <option value="dubai">(GMT+4) دبي</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- كود JavaScript لفتح وإغلاق القوائم عند النقر -->
+    <script>
+        function toggleSetting(contentId) {
+            const content = document.getElementById(contentId);
+            const arrow = document.getElementById('arrow-' + contentId);
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                // إغلاق باقي الأقسام المفتوحة لتصميم مرتب
+                document.querySelectorAll('.setting-content').forEach(c => c.style.display = 'none');
+                document.querySelectorAll('.arrow-icon').forEach(a => a.style.transform = 'rotate(0deg)');
+                
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+    <script src="tcmg-theme.js"></script>
+</body>
+</html>

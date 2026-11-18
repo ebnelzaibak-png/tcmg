@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: #0d1b2a;
+    color: #e0e1dd;
+    direction: rtl;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* القائمة الجانبية */
+.sidebar {
+    width: 260px;
+    background-color: #1b263b;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #415a77;
+}
+
+.logo h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu a {
+    color: #778da9;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.menu a:hover, .menu a.active {
+    background-color: #415a77;
+    color: #ffffff;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    flex: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+}
+
+/* الشريط العلوي */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #1b263b;
+    padding: 12px 20px;
+    border-radius: 12px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #0d1b2a;
+    padding: 8px 15px;
+    border-radius: 8px;
+    width: 300px;
+    gap: 10px;
+    border: 1px solid #415a77;
+}
+
+.search-box input {
+    background: none;
+    border: none;
+    color: #ffffff;
+    outline: none;
+    width: 100%;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-profile .lang {
+    background-color: #415a77;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    background-color: #778da9;
+    color: #0d1b2a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.card {
+    background-color: #1b263b;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #415a77;
+}

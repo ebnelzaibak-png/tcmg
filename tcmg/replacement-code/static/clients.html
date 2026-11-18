@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCMG - إدارة العملاء</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: #0b131e; color: #ffffff; direction: rtl; }
+        .dashboard-container { display: flex !important; flex-direction: row-reverse !important; min-height: 100vh; width: 100%; }
+        .sidebar { width: 250px !important; background-color: #121c27 !important; border-left: 1px solid #1e2d3d !important; display: flex !important; flex-direction: column !important; flex-shrink: 0 !important; }
+        .sidebar .logo { padding: 25px 20px; text-align: center; }
+        .sidebar .logo h2 { color: #ffffff; font-size: 20px; }
+        .sidebar .menu { display: flex; flex-direction: column; }
+        .sidebar .menu a { display: flex; align-items: center; gap: 12px; padding: 14px 20px; color: #778da9; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .sidebar .menu a:hover, .sidebar .menu a.active { color: #ffffff; background: #1a2736; border-right: 4px solid #ffffff; }
+        .main-content { flex: 1 !important; padding: 20px; overflow-y: auto; width: calc(100% - 250px); }
+        .card-custom { background: #121c27; border: 1px solid #1e2d3d; border-radius: 10px; padding: 20px; margin-bottom: 25px; }
+        .table-header-tools { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .action-btns { display: flex; gap: 6px; }
+        .btn-icon { background: #0b131e; border: 1px solid #1e2d3d; color: #778da9; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .btn-icon:hover { color: #fff; border-color: #778da9; }
+        table { width: 100%; border-collapse: collapse; text-align: right; font-size: 13px; }
+        th { color: #778da9; padding: 12px; border-bottom: 1px solid #1e2d3d; }
+        td { padding: 12px; border-bottom: 1px solid #1e2d3d; color: #e0e1dd; }
+        .modal-overlay { display: none; background: rgba(11, 19, 30, 0.85); position: fixed; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-box { background-color: #121c27; border: 1px solid #1e2d3d; border-radius: 12px; width: 700px; max-width: 90%; color: #ffffff; overflow: hidden; }
+    </style>
+    <link rel="stylesheet" href="figma-replacement.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo"><h2>✦ TCMG</h2></div>
+            <nav class="menu">
+                <a href="index.html"><i class="fa-solid fa-house"></i> الصفحة الرئيسية</a>
+                <a href="contacts.html"><i class="fa-solid fa-phone"></i> الاتصال</a>
+                <a href="clients.html" class="active"><i class="fa-solid fa-user-group"></i> العملاء</a>
+                <a href="cases.html"><i class="fa-solid fa-briefcase"></i> القضايا</a>
+                <a href="court.html"><i class="fa-solid fa-scale-balanced"></i> المحكمة</a>
+                <a href="tasks.html"><i class="fa-solid fa-list-check"></i> المهام والأعمال</a>
+                <a href="hr.html"><i class="fa-solid fa-users"></i> الموارد البشرية</a>
+                <a href="vacations.html"><i class="fa-solid fa-clock-rotate-left"></i> الإجازات</a>
+                <a href="roles.html"><i class="fa-solid fa-lock"></i> صلاحيات الدخول</a>
+                <a href="consultations.html"><i class="fa-solid fa-gavel"></i> الاستشارات القانونية</a>
+                <a href="system.html"><i class="fa-solid fa-gears"></i> النظام</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="client-dashboard" aria-label="ملخص العملاء">
+                <article class="card-custom client-chart-card">
+                    <div class="cases-chart-heading"><div><h2>العملاء</h2><span>ملخص العملاء المسجلين</span></div><div class="cases-chart-legend"><span><i class="gold-dot"></i> شركات ومؤسسات</span><span><i class="white-dot"></i> أفراد</span></div></div>
+                    <div class="client-bars" role="img" aria-label="مقارنة الشركات والأفراد المسجلين"><span><i style="height:34%"></i><b style="height:19%"></b></span><span><i style="height:57%"></i><b style="height:32%"></b></span><span><i style="height:41%"></i><b style="height:23%"></b></span><span><i style="height:79%"></i><b style="height:49%"></b></span><span><i style="height:61%"></i><b style="height:31%"></b></span><span><i style="height:88%"></i><b style="height:55%"></b></span><span><i style="height:73%"></i><b style="height:38%"></b></span><span><i style="height:94%"></i><b style="height:66%"></b></span></div>
+                    <div class="client-months"><span>يناير</span><span>فبراير</span><span>مارس</span><span>أبريل</span><span>مايو</span><span>يونيو</span><span>يوليو</span><span>أغسطس</span></div>
+                </article>
+                <article class="card-custom client-chart-card client-nationalities">
+                    <div class="cases-chart-heading"><div><h2>جنسيات العملاء</h2><span>توزيع العملاء حسب البلد</span></div></div>
+                    <div class="client-nationality-layout"><div class="client-donut" role="img" aria-label="توزيع العملاء حسب البلد"></div><div class="client-nationality-legend"><span><i class="gold-dot"></i> مصر</span><span><i class="white-dot"></i> السعودية</span><span><i class="red-dot"></i> البحرين</span><span><i class="blue-dot"></i> دول أخرى</span></div></div>
+                </article>
+            </section>
+            <div class="card-custom">
+                <h3 style="font-size: 18px; margin-bottom: 15px; text-align: center;">سجل العملاء</h3>
+                <div class="table-header-tools">
+                    <span style="color: #778da9; font-size: 13px;">قائمة العملاء المسجلين</span>
+                    <div class="action-btns">
+                        <button class="btn-icon" id="openClientModal"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>اسم العميل</th><th>نوع العميل</th><th>رقم الهوية / السجل</th><th>الهاتف</th><th>البريد الإلكتروني</th><th style="text-align: center;">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>شركة الأمل للتجارة</td><td>شركة / مؤسسة</td><td>1010998822</td><td>0500000000</td><td>info@alamal.com</td>
+                            <td style="text-align: center;"><i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- نافذة إضافة عميل جديد -->
+    <div id="clientModal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="padding: 20px; border-bottom: 1px solid #1e2d3d; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-size: 18px;">إضافة عميل جديد</h2>
+                <i class="fa-solid fa-xmark close-modal" style="cursor: pointer; color: #778da9;"></i>
+            </div>
+            <form style="padding: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">اسم العميل</label><input type="text" placeholder="اسم العميل" style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"></div>
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">نوع العميل</label><select style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"><option>فرد</option><option>شركة / مؤسسة</option></select></div>
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">رقم التواصل</label><input type="text" placeholder="رقم الهاتف" style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"></div>
+                    <div><label style="display: block; font-size: 12px; margin-bottom: 5px;">البريد الإلكتروني</label><input type="email" placeholder="البريد" style="width: 100%; padding: 10px; border-radius: 6px; border: none; outline: none;"></div>
+                </div>
+                <div style="display: flex; justify-content: flex-end;"><button type="submit" style="background: none; border: none; color: #fff; font-weight: bold; cursor: pointer;">حفظ <i class="fa-solid fa-arrow-left"></i></button></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('openClientModal').addEventListener('click', () => document.getElementById('clientModal').style.display = 'flex');
+        document.querySelectorAll('.close-modal, .modal-overlay').forEach(el => el.addEventListener('click', e => { if(e.target === el) document.getElementById('clientModal').style.display = 'none'; }));
+    </script>
+    <script src="tcmg-theme.js"></script>
+</body>
+</html>
+</body>
+</html>
